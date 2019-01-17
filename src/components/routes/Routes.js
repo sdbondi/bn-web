@@ -1,68 +1,68 @@
-import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
-import {observer} from 'mobx-react';
-import MomentUtils from '@date-io/moment';
-import {MuiPickersUtilsProvider} from 'material-ui-pickers';
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import { observer } from "mobx-react";
+import MomentUtils from "@date-io/moment";
+import { MuiPickersUtilsProvider } from "material-ui-pickers";
 
-import OnRouteChange from './OnRouteChange';
-import withRoot from './withRoot';
-import Container from '../elements/Container';
-import NotFound from '../common/NotFound';
-import Account from '../pages/account/Index';
-import OrderList from '../pages/orders/List';
-import Order from '../pages/orders/Order';
-import FanHub from '../pages/fanhub/Index';
-import Signup from '../pages/authentication/Signup';
-import Login from '../pages/authentication/Login';
-import PasswordReset from '../pages/authentication/PasswordReset';
+import OnRouteChange from "./OnRouteChange";
+import withRoot from "./withRoot";
+import Container from "../elements/Container";
+import NotFound from "../common/NotFound";
+import Account from "../pages/account/Index";
+import OrderList from "../pages/orders/List";
+import Order from "../pages/orders/Order";
+import FanHub from "../pages/fanhub/Index";
+import Signup from "../pages/authentication/Signup";
+import Login from "../pages/authentication/Login";
+import PasswordReset from "../pages/authentication/PasswordReset";
 
 //Unauthenticated pages
-import Home from '../pages/landing/Index';
-import ViewEvent from '../pages/events/ViewEvent';
-import ViewVenue from '../pages/venues/ViewVenue';
-import CheckoutSelection from '../pages/events/CheckoutSelection';
-import CheckoutConfirmation from '../pages/events/CheckoutConfirmation';
-import CheckoutSuccess from '../pages/events/CheckoutSuccess';
-import MobileStripeAuth from '../pages/authentication/MobileStripeAuth';
+import Home from "../pages/landing/Index";
+import ViewEvent from "../pages/events/ViewEvent";
+import ViewVenue from "../pages/venues/ViewVenue";
+import CheckoutSelection from "../pages/events/CheckoutSelection";
+import CheckoutConfirmation from "../pages/events/CheckoutConfirmation";
+import CheckoutSuccess from "../pages/events/CheckoutSuccess";
+import MobileStripeAuth from "../pages/authentication/MobileStripeAuth";
 
 // Development
-import ElementShowcase from '../pages/development/ElementShowCase';
+import ElementShowcase from "../pages/development/ElementShowCase";
 
 //Admin
-import AdminOrganizationsList from '../pages/admin/organizations/List';
-import AdminOrganization from '../pages/admin/organizations/Organization';
-import AdminVenuesList from '../pages/admin/venues/List';
-import AdminVenue from '../pages/admin/venues/Venue';
-import AdminArtistsList from '../pages/admin/artists/List';
-import AdminArtist from '../pages/admin/artists/Artist';
-import AdminEventsList from '../pages/admin/events/List';
-import AdminEventDashboardSummary from '../pages/admin/events/dashboard/Summary';
-import AdminEventDashboardHolds from '../pages/admin/events/dashboard/holds/List';
-import AdminEventDashboardComps from '../pages/admin/events/dashboard/comps/List';
-import AdminEventDashboardReports from '../pages/admin/events/dashboard/reports/Index';
-import AdminEventUpdate from '../pages/admin/events/EventUpdate';
-import AdminFanList from '../pages/admin/fans/Index';
-import AdminFanDetails from '../pages/admin/fans/FanDetails';
-import AdminMarketing from '../pages/admin/marketing/Index';
-import AdminReports from '../pages/admin/reports/Index';
+import AdminOrganizationsList from "../pages/admin/organizations/List";
+import AdminOrganization from "../pages/admin/organizations/Organization";
+import AdminVenuesList from "../pages/admin/venues/List";
+import AdminVenue from "../pages/admin/venues/Venue";
+import AdminArtistsList from "../pages/admin/artists/List";
+import AdminArtist from "../pages/admin/artists/Artist";
+import AdminEventsList from "../pages/admin/events/List";
+import AdminEventDashboardSummary from "../pages/admin/events/dashboard/Summary";
+import AdminEventDashboardHolds from "../pages/admin/events/dashboard/holds/List";
+import AdminEventDashboardComps from "../pages/admin/events/dashboard/comps/List";
+import AdminEventDashboardReports from "../pages/admin/events/dashboard/reports/Index";
+import AdminEventUpdate from "../pages/admin/events/EventUpdate";
+import AdminFanList from "../pages/admin/fans/Index";
+import AdminFanDetails from "../pages/admin/fans/FanDetails";
+import AdminMarketing from "../pages/admin/marketing/Index";
+import AdminReports from "../pages/admin/reports/Index";
 
 //Box office
-import BoxOfficeTicketSales from '../pages/boxoffice/sales/Index';
+import BoxOfficeTicketSales from "../pages/boxoffice/sales/Index";
 
-import InviteDecline from '../pages/admin/invites/Decline';
-import InviteAccept from '../pages/admin/invites/Accept';
+import InviteDecline from "../pages/admin/invites/Decline";
+import InviteAccept from "../pages/admin/invites/Accept";
 
 //Embedded widgets
-import EventQR from '../widgets/EventQR';
-import EmbeddedWidget from '../widgets/Embedded';
+import EventQR from "../widgets/EventQR";
+import EmbeddedWidget from "../widgets/Embedded";
 
-import user from '../../stores/user';
-import AuthenticateCheckDialog from '../common/AuthenticateCheckDialog';
-import WidgetLinkBuilder from '../widgets/LinkBuilder';
-import ReceiveTransfer from '../pages/fanhub/ReceiveTransfer';
-import GuestList from '../pages/boxoffice/guests/Index';
+import user from "../../stores/user";
+import AuthenticateCheckDialog from "../common/AuthenticateCheckDialog";
+import WidgetLinkBuilder from "../widgets/LinkBuilder";
+import ReceiveTransfer from "../pages/fanhub/ReceiveTransfer";
+import GuestList from "../pages/boxoffice/guests/Index";
 
-const PrivateRoute = ({component: Component, isAuthenticated, ...rest}) => {
+const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => {
 	//If isAuthenticated is null then we're still checking the state
 	return (
 		<Route
@@ -85,12 +85,12 @@ class Routes extends Component {
 	componentDidMount() {
 		//Load the google API here because we need the a .env var
 		if (!process.env.REACT_APP_GOOGLE_PLACES_API_KEY) {
-			if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-				console.warn('Please add a REACT_APP_GOOGLE_PLACES_API_KEY value to use google places');
+			if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
+				console.warn("Please add a REACT_APP_GOOGLE_PLACES_API_KEY value to use google places");
 			}
 		} else {
 			const apiKey = process.env.REACT_APP_GOOGLE_PLACES_API_KEY;
-			const script = document.createElement('script');
+			const script = document.createElement("script");
 
 			script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
 			document.head.append(script);
@@ -112,7 +112,7 @@ class Routes extends Component {
 	}
 
 	render() {
-		const {isAuthenticated} = user;
+		const { isAuthenticated } = user;
 
 		return (
 			<Router>
